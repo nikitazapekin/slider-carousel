@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <div class="slider">
+     <button class="slider_prev">←</button>
+     <button class="slider_next">→</button>
+     <div class="slider_container">
+        <!-- <img src="https://ru.js.cx/carousel/1.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/6.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/8.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/1.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/6.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/8.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/1.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/6.png" alt="hh" class="image">
+         <img src="https://ru.js.cx/carousel/8.png" alt="hh" class="image"> -->
+         <img src="https://answit.com/wp-content/uploads/2017/01/full-hd.jpg" alt="gg" class="image">
+         <img src="https://st-gdefon.gallery.world/wallpapers_original/119073_gallery.world.jpg" alt="gg" class="image">
+         <img src="https://i.pinimg.com/originals/de/31/a6/de31a6ee61dedcb9a9a1d699dd92ee9c.jpg" alt="gg" class="image">
+         <img src="https://pbs.twimg.com/media/FLAtpOaXMAEPnUh.jpg" alt="gg" class="image">
+         <img src="https://3d-linker.ru/components/com_jshopping/files/img_products/38_USA_Forests_Rivers_.jpg" alt="gg" class="image">
+         <img src="https://avatars.mds.yandex.net/i?id=a565dc86866b4baacd6cf0f92668b59c-5878067-images-thumbs&ref=rim&n=33&w=281&h=188" alt="gg" class="image">
+     </div>
+     <div class="dots">
+         <div class="dot active"></div>
+         <div class="dot active"></div>
+         <div class="dot active"></div>
+         <div class="dot active"></div>
+         <div class="dot active"></div>
+         <div class="dot active"></div>
+     </div>
+ </div>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .slider {
+        height: 100vh;
+        margin: 0 auto;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+      /*  max-width: 683px;
+        max-height: 384px;
+        width: 100%;
+        height: 100%; */
+        background-color: orangered;
+        overflow: hidden;
+
+    }
+    .slider_container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        right: 0;
+        transition: 2s ease-in-out;
+    }
+    .image {
+        object-fit: cover;
+      /*  width: 100%;
+        height: 100%; */
+       height: 100vh;
+        min-width: 100%;
+        max-width: 100%;
+
+    }
+    .slider_next {
+        position: absolute;
+        z-index: 11;
+        right: 0;
+        top: 0;
+
+    }
+    .slider_prev {
+        position: absolute;
+        z-index: 11;
+        left: 0;
+        top: 0;
+
+    }
+    .slider_next, .slider_prev {
+        cursor: pointer;
+        width: 100px;
+        height: 100vh;
+        font-size: 50px;
+        color: red;
+        background-color: #4a4b4a;
+        transition: 3s;
+    }
+
+    .dots {
+        display: flex;
+        gap: 10px;
+        position: relative;
+        bottom: 10%;
+        justify-content: center;
+        z-index: 111111;
+        margin:  0 auto;
+    }
+    .dot {
+        width: 50px;
+        height: 50px;
+        background-color: #a5a3a3;
+        border-radius: 50%;
+
+    }
+  /*  .dot:nth-child(1) {
+        background-color: orangered;
+    }
+      */
+    .active {
+        background-color: orangered;
+    }
+    .active1 {
+        background-color: red;
+    }
+</style>
+<script>
+    let  sliderContainer = document.querySelector(".slider_container");
+    let prevBtn = document.querySelector(".slider_prev")
+    let nextBtn = document.querySelector(".slider_next")
+    /*const maxSlides =4; */
+    let  dot = document.querySelector(".dot");
+    let dots=document.querySelectorAll(".dots");
+    const maxSlides = 6;
+    let slideIndex =1;
+    let position =0;
+
+    function nextSlide() {
+        slideIndex+=1;
+        position+=sliderContainer.offsetWidth; /* добавляем  позиции величину ширины слайдера */
+        if(position> sliderContainer.offsetWidth*5){ /*добавляем размер прокрутки изображений враво */
+            position=0;
+        }
+        sliderContainer.style.opacity="0.4";
+
+        sliderContainer.style.right=position + "px";
+        setTimeout(()=> {
+            sliderContainer.style.opacity="1";
+        }, 1000)
+    }
+
+   let timerId = setInterval(nextSlide, 7000)
+    function prevSlide() {
+        slideIndex-=1;
+        position-=sliderContainer.offsetWidth; /* добавляем значение для хода назад */
+        if(position<0){
+            position=sliderContainer.offsetWidth*(maxSlides-1); /*перекидываем в конец */
+        }
+        sliderContainer.style.right = position +"px";
+
+    }
+    nextBtn.addEventListener("click", nextSlide);
+    nextBtn.addEventListener("click", ()=> {
+        clearInterval(timerId);
+
+    })
+   /* nextBtn.addEventListener("click", ()=> {
+        setInterval(timerId, 3000)
+
+    }) */
+    nextBtn.onclick = setInterval(timerId )
+    prevBtn.addEventListener("click", prevSlide)
+
+
+</script>
+</body>
+</html>
